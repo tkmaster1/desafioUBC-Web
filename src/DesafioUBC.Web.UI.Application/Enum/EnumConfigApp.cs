@@ -1,4 +1,4 @@
-﻿namespace DesafioUBC.Web.UI.Application.Services.Enum
+﻿namespace DesafioUBC.Web.UI.Application.Enum
 {
     public class EnumConfigApp
     {

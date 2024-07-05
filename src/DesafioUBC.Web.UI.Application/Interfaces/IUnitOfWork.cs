@@ -2,7 +2,8 @@
 {
     public interface IUnitOfWork
     {
-        //  IAlunoAppService AlunoApp { get; }
+        IStudentsAppService StudentsApp { get; }
+
         ILoginRegisterUserAppService LoginRegisterUserApp { get; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DesafioUBC.Web.UI.Application.Interfaces;
+using DesafioUBC.Web.UI.Application.Notifications;
 using DesafioUBC.Web.UI.Application.Services;
-using DesafioUBC.Web.UI.Application.Services.Notifications;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Collections.Generic;
 

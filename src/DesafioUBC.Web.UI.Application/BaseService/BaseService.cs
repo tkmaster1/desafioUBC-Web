@@ -1,14 +1,14 @@
 ﻿using DesafioUBC.Web.UI.Application.Interfaces;
+using DesafioUBC.Web.UI.Application.Notifications;
 using DesafioUBC.Web.UI.Application.Responses;
 using DesafioUBC.Web.UI.Application.Services;
-using DesafioUBC.Web.UI.Application.Services.Notifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Win32.SafeHandles;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
-using static DesafioUBC.Web.UI.Application.Services.Enum.EnumConfigApp;
+using static DesafioUBC.Web.UI.Application.Enum.EnumConfigApp;
 
 namespace DesafioUBC.Web.UI.Application.BaseService
 {

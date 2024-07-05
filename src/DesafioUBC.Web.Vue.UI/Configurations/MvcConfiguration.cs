@@ -1,10 +1,9 @@
 ﻿using DesafioUBC.Web.UI.Application.BaseService;
 using DesafioUBC.Web.UI.Application.Interfaces;
-using DesafioUBC.Web.UI.Application.Services;
+using DesafioUBC.Web.UI.Application.Notifications;
 using DesafioUBC.Web.Vue.UI.Configurations.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -20,18 +19,10 @@ namespace DesafioUBC.Web.Vue.UI.Configurations
             if (services == null) throw new ArgumentNullException(nameof(services));
 
             services.AddControllers(x =>
-            {
-                //x.Filters.Add<CustomActionFilterConfig>();
-                x.Filters.Add(typeof(CustomActionFilterConfig));
-         //       x.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider());
-            }
-         );
-
-            //services.AddHealthChecks();
-
-            //services.AddProblemDetails();
-
-            //   services.AddDefaultCorrelationId(ConfigureCorrelationId());
+                {
+                    x.Filters.Add(typeof(CustomActionFilterConfig));
+                }
+            );
 
             services.AddControllersWithViews();
 
@@ -68,8 +59,6 @@ namespace DesafioUBC.Web.Vue.UI.Configurations
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddHttpContextAccessor();
 
-          //  services.Configure<Projeto>(configuration.GetSection("Projeto"));
-
             //aumenta o limite do corpo da requisição multipart 
             services.Configure<FormOptions>(options =>
             {
@@ -97,9 +86,9 @@ namespace DesafioUBC.Web.Vue.UI.Configurations
             var provider = services.BuildServiceProvider();
 
             services.AddTransient<IBaseService>(c => new BaseService(provider.GetService<IHttpContextAccessor>(),
-                                                                  provider.GetService<IHttpClientFactory>(),
-                                                                  _appConfig,
-                                                                 provider.GetService<INotificationHandler<Notification>>()));
+                                                                     provider.GetService<IHttpClientFactory>(),
+                                                                     _appConfig,
+                                                                     provider.GetService<INotificationHandler<Notification>>()));
 
             services.AddCors();
 

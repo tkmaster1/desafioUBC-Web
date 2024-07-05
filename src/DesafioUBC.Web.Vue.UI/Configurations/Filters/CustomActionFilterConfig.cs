@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using DesafioUBC.Web.UI.Application.Services.Notifications;
+using DesafioUBC.Web.UI.Application.Notifications;
 
 namespace DesafioUBC.Web.Vue.UI.Configurations.Filters
 {

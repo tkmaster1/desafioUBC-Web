@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace DesafioUBC.Web.UI.Application.Services
+namespace DesafioUBC.Web.UI.Application.BaseService
 {
     public class ApplicationsConfiguration
     {

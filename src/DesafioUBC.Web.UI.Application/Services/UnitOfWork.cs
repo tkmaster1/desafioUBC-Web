@@ -27,7 +27,7 @@ namespace DesafioUBC.Web.UI.Application.Services
 
         private readonly ILoginRegisterUserAppService _loginRegisterUserApp;
 
-        // private readonly IStudentsAppService _studentsApp;
+        private readonly IStudentsAppService _studentsApp;
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace DesafioUBC.Web.UI.Application.Services
         public ILoginRegisterUserAppService LoginRegisterUserApp
        => _loginRegisterUserApp ?? new LoginRegisterUserAppService(_baseService);
 
-        //  public IStudentsAppService StudentsApp => _studentsApp ?? new StudentsAppService(_baseService);
+        public IStudentsAppService StudentsApp => _studentsApp ?? new StudentsAppService(_baseService);
 
         #endregion
     }

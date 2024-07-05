@@ -1,4 +1,4 @@
-﻿namespace DesafioUBC.Web.UI.Application.Services.Notifications
+﻿namespace DesafioUBC.Web.UI.Application.Notifications
 {
     public class NotificationHandler : INotificationHandler<Notification>
     {
