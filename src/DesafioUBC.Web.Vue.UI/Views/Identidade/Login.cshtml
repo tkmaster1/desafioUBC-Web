@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Acesso Restrito";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a class="h1"><b title="Secretaria de Gestão Escolar">UBC</b></a>
+        </div>
+        <div class="card-body">
+            <h4 class="login-box-msg">Bem vindo!</h4>
+            <h5 class="login-box-msg text-center">Faça login para iniciar sua sessão</h5>
+
+            <div id="dvLogin" v-cloak>
+
+                <div class="text-center mb-4 text-danger">{{messageErrorValidationViewData}}</div>
+
+                <div class="mb-3">
+                    <div class="row row-space-10">
+                        <div class="col-12" v-bind:class="classesErrorsValidation">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="E-mail" v-model="newLoginUser.email" required />
+                                <span class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </span>
+                                <div class="invalid-feedback">
+                                    {{messageErrorValidation.email}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="row row-space-10">
+                        <div class="col-12" v-bind:class="classesErrorsValidation">
+                            <div class="input-group" id="toggleOldPassword">
+                                <input type="password" class="form-control pswd" placeholder="Senha" v-model="newLoginUser.password" required />
+                                <span class="input-group-text">
+                                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                </span>
+                                <div class="invalid-feedback">
+                                    {{messageErrorValidation.password}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block" v-on:click="saveNewLoginRegister">
+                            <span class="fa fa-sign-in" style="color:white !important"></span>
+                            Entrar
+                        </button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+            </div>
+            <loading v-model:active="isLoading" color="#530daf" />
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+<!-- /.login-box -->
+@section Scripts {
+    <script src="~/vue/views/mensagemSucessoErro/msgToast-vue.js"></script>
+    <script src="~/vue/views/login/login-vue.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#toggleOldPassword a").on('click', function (event) {
+                event.preventDefault();
+                if ($('#toggleOldPassword input').attr("type") == "text") {
+                    $('#toggleOldPassword input').attr('type', 'password');
+                    $('#toggleOldPassword i').addClass("fa-eye-slash");
+                    $('#toggleOldPassword i').removeClass("fa-eye");
+                } else if ($('#toggleOldPassword input').attr("type") == "password") {
+                    $('#toggleOldPassword input').attr('type', 'text');
+                    $('#toggleOldPassword i').removeClass("fa-eye-slash");
+                    $('#toggleOldPassword i').addClass("fa-eye");
+                }
+            });
+        });
+
+    </script>
+}

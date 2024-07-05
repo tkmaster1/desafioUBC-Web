@@ -1,0 +1,77 @@
+
+.datepicker {
+    z-index: 1555 !important
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.td-text-overflow {
+    width: 35%;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 99px;
+    white-space: nowrap;
+}
+
+.tippy-box[data-theme~='primary'] {
+    background-color: blue;
+    color: white;
+}
+
+    .tippy-box[data-theme~='primary'][data-placement^='top'] > .tippy-arrow::before {
+        border-top-color: primary;
+    }
+
+a .fa {
+    font-size: 17px !important
+}
+
+
+.thead-lightblue {
+    background-color: #86bad8;
+    color: #000000;
+    border-color: #CCCCCC;
+    font-weight: bolder;
+}
+
+.thead-lightblue1 {
+    background-color: #86bad8;
+    color: #FFFFFF;
+    border-color: #CCCCCC;
+    font-weight: bolder;
+}
+
+.button-lightblue {
+    background-color: #86bad8;
+    color: #000000;
+    border-color: #CCCCCC;
+    font-weight: bolder;
+}
+
+.alert-dark {
+    background-color: #001f3f !important;
+    color: #fff !important;
+}
+
+
+/*html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}*/

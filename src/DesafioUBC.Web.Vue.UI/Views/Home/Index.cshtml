@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="dvHome" v-cloak>
+    <div class="text-center">
+        <h1 class="display-4">{{ welcome }}</h1>
+        <p>{{ textoIndex }}</p>
+        <p class="obrigatorio">{{ subTextoIndex }}</p>
+    </div>
+    <div class="text-center">
+       @*  <br />
+        <img id="imgLogo" runat="server" src="~/dist/img/img_index_2.png" style="width: 450px; height: 370px" />*@
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/vue/views/mensagemSucessoErro/msgToast-vue.js"></script>
+    <script src="~/vue/views/home/home-vue.js"></script>
+}
+
+@* @{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@

@@ -1,0 +1,13 @@
+﻿@inject IConfiguration _config
+
+<footer class="main-footer">
+    <strong>&copy; @DateTime.Now.Year Desafio UBC para trabalho.</strong>
+    <div class="float-right d-none d-sm-inline-block">
+        <b>Versão:&nbsp;</b>@_config["AppSettings:Application:Version"]
+    </div>
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar">
+    <!-- Control sidebar content goes here -->
+</aside>

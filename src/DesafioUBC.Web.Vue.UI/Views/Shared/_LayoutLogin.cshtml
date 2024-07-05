@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] | UBC - Dot.Net </title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <!-- Font Awesome -->
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" type="text/css" />
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <link href="~/vue/lib/overlay-loading/vue-loading-overlay.css" rel="stylesheet" />
+
+    <link href="~/css/app.min.css" rel="stylesheet" />
+
+    <!-- Theme style -->
+    <link href="~/lib/admin-lte/css/adminlte.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    @RenderSection("Styles", required: false)
+
+</head>
+<body class="hold-transition login-page">
+
+    @RenderBody()
+
+    <script>
+        window.paceOptions = {
+            ajax: { ignoreURLs: ['mainHub', '__browserLink', 'browserLinkSignalR'], trackWebSockets: false }
+        };
+    </script>
+
+    <!-- jQuery -->
+    <script src="~/vue/lib/vue-3.3.7.js"></script>
+
+    <script src="~/vue/lib/overlay-loading/vue-loading-overlay.js"></script>
+    <script src="~/vue/util/axios.min.js"></script>
+    <script src="~/vue/util/fetchdata.js"></script>
+    <script src="~/vue/lib/maska/maska-v1.5.2.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script src="~/lib/font-awesome/js/all.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="~/lib/admin-lte/js/adminlte.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
