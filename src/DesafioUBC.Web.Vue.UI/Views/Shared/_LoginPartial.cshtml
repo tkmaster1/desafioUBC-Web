@@ -1,24 +1,17 @@
 ﻿@using DesafioUBC.Web.UI.Application.Interfaces
 @inject IUserLoginAppService AppUser
-@* @{
-    // var pUserFileNameImage = !string.IsNullOrEmpty(@AppUser.ObterUserFileNameImage())
-    //                             ? "/arquivos/img/" + @AppUser.ObterUserFileNameImage()
-    //                             : "/dist/img/istockphoto-1326784239-2048x2048.jpg";
-} *@
 
 <ul class="navbar-nav">
     @if (AppUser.IsAuthenticated())
     {
         <div class="menu-item dropdown">
-            <a data-bs-toggle="dropdown" href="#" data-display="static" class="menu-link">
-                <div class="menu-text">@AppUser.GetUserName()</div>
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <img src="~/lib/admin-lte/img/istockphoto-1326784239-2048x2048.jpg" style="width:36px; hight:36px" class="user-image img-circle elevation-2" id="profilePic" title=""
+                     alt="ser Image">
+
+                <span class="d-none d-md-inline"><b>@AppUser.GetUserName()</b></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end me-lg-3">
-                @* <a class="dropdown-item d-flex align-items-center" asp-area="" asp-controller="PerfilUsuario" asp-action="Profile" title="Perfil do Usuário">
-                    Perfil Usuário
-                    <i class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i>
-                </a> *@
-
                 <div class="dropdown-divider"></div>
 
                 <form id="logoutForm" class="form-inline" asp-area="" asp-controller="Identidade" asp-action="Logout">

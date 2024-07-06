@@ -12,8 +12,8 @@
         <div class="card-body">
             <h4 class="login-box-msg">Bem vindo!</h4>
             <h5 class="login-box-msg text-center">Faça login para iniciar sua sessão</h5>
-
             <div id="dvLogin" v-cloak>
+                <partial name="_MessagesLogin" />
 
                 <div class="text-center mb-4 text-danger">{{messageErrorValidationViewData}}</div>
 
@@ -21,7 +21,7 @@
                     <div class="row row-space-10">
                         <div class="col-12" v-bind:class="classesErrorsValidation">
                             <div class="input-group">
-                                <input class="form-control" placeholder="E-mail" v-model="newLoginUser.email" required />
+                                <input class="form-control" placeholder="E-mail" v-model="newLoginUser.userName" required />
                                 <span class="input-group-text">
                                     <span class="fas fa-envelope"></span>
                                 </span>
@@ -63,6 +63,7 @@
             </div>
             <loading v-model:active="isLoading" color="#530daf" />
         </div>
+
         <!-- /.card-body -->
     </div>
     <!-- /.card -->

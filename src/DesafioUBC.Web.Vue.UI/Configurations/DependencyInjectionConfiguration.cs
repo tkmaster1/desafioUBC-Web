@@ -2,7 +2,6 @@
 using DesafioUBC.Web.UI.Application.Notifications;
 using DesafioUBC.Web.UI.Application.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Collections.Generic;
 
 namespace DesafioUBC.Web.Vue.UI.Configurations
 {

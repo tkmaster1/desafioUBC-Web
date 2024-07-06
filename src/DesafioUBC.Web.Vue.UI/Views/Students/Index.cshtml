@@ -48,7 +48,7 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <button class="btn btn-secondary" v-on:click="clearFilterName" type="button">
-                                        <span class="d-none d-md-inline">Limpar Filtros</span><span class="d-inline d-md-none"><i class="fa fa-check"></i></span>
+                                        <i class="fa fa-search"></i>&nbsp; <span class="d-none d-md-inline">Limpar Filtros</span>
                                     </button>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                             <th style="width: 15%">
                                 Nome da mãe
                             </th>
-                            <th style="width: 10%">
+                            <th style="width: 15%">
                                 Data de Nascimento
                             </th>
                             <th style="width: 15%" class="text-center">
@@ -134,7 +134,7 @@
                             <td style="width: 15%">
                                 {{st.motherName}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 15%">
                                 {{ moment(st.dateBirth) }}
                             </td>
                             <td class="project-actions text-center" style="width: 15%">
@@ -197,7 +197,7 @@
                     </ul>
                 </div>
 
-                <loading v-model:active="isLoading" :is-full-page="fullPage" color="#530daf" />                
+                <loading v-model:active="isLoading" :is-full-page="fullPage" color="#530daf" />
             </div>
 
         </div>

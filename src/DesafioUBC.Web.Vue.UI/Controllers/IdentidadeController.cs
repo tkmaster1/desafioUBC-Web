@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DesafioUBC.Web.UI.Application.DTOs;
-using DesafioUBC.Web.UI.Application.Extensions;
 using DesafioUBC.Web.UI.Application.Interfaces;
 using DesafioUBC.Web.UI.Application.Responses;
 using DesafioUBC.Web.Vue.UI.ViewModels;
@@ -9,7 +8,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 

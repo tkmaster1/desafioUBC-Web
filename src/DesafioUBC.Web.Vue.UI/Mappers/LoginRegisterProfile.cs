@@ -14,7 +14,6 @@ namespace DesafioUBC.Web.Vue.UI.Mappers
         private void CreateLoginRegisterProfile()
         {
             CreateMap<LoginUserViewModel, LoginUserRequestDTO>().ReverseMap();
-          //  CreateMap<UserIdentityRegisterViewModel, UserIdentityRegisterRequestDTO>().ReverseMap();
         }
     }
 }

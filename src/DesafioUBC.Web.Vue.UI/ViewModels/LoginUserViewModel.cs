@@ -6,9 +6,9 @@ namespace DesafioUBC.Web.Vue.UI.ViewModels
     public class LoginUserViewModel
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
-        [EmailAddress(ErrorMessage = "E-mail em formato inválido.")]
-        [Display(Name = "E-mail")]
-        public string Email { get; set; }
+        [EmailAddress(ErrorMessage = "Nome de usuário tem que ser em formato de E-mail.")]
+        [Display(Name = "Nome de usuário")]
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [DataType(DataType.Password)]

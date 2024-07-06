@@ -4,7 +4,7 @@ createApp({
     data() {
         return {
             newLoginUser: {
-                email: "",
+                userName: "",
                 password: "",
                 returnUrl: ""
             },
@@ -32,27 +32,23 @@ createApp({
     methods: {
         mapperObjectLoginRegister() {
             var objNewLoginRegister = new Object({
-                email: this.newLoginUser.email,
+                userName: this.newLoginUser.userName,
                 password: this.newLoginUser.password,
                 returnUrl: this.newLoginUser.returnUrl
             })
 
-            // console.log(objNewMenuSystem)
             return objNewLoginRegister
         },
 
         async saveNewLoginRegister() {
             this.isLoading = true
 
-            const login1 = this.mapperObjectLoginRegister()
-            console.log(login1)
+            const loginMapper = this.mapperObjectLoginRegister()
 
             try {
-                const response = await fetchData.fetchPostJsonValidation("/Identidade/SaveRegisterAndLogin", login1)
+                const response = await fetchData.fetchPostJsonValidation("/Identidade/SaveRegisterAndLogin", loginMapper)
 
                 if (!response.success) {
-                    // debugger;
-
                     this.isLoading = false
 
                     if (response.mensagem != undefined) {
@@ -71,7 +67,7 @@ createApp({
                 } else {
                     this.isLoading = false
 
-                    console.log('Enviado com sucesso!')
+                    //console.log('Enviado com sucesso!')
 
                     this.clearFieldsLogin()
 
@@ -84,7 +80,7 @@ createApp({
 
                 this.toastMensagemErro = "Erro ao tentar realizar o login no Sistema."
 
-                //  $("#toastErro").toast("show")
+                $("#toastErroLogin").toast("show")
             }
         },
 
