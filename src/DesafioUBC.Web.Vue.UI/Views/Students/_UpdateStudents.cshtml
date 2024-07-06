@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header alert alert-dark">
                 <h5 class="modal-title"><i class="fas fa-bars fa-fw me-1"></i>&nbsp;Editar Estudante</h5>
-                <button type="button" class="btn-close btn-close-white" data-dismiss="modal" v-on:click="clearFieldsEditStudents"></button>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal" v-on:click="clearFieldsChangeStudents"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -111,8 +111,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalUpdateStudents" v-on:click="clearFieldsEditStudents">Fechar</button>
-                <button type="submit" class="btn btn-success" v-on:click="saveEditStudents">Salvar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalUpdateStudents" v-on:click="clearFieldsChangeStudents">Fechar</button>
+                <button type="submit" class="btn btn-success" v-on:click="saveChangeStudents">Salvar</button>
             </div>
         </div>
     </div>

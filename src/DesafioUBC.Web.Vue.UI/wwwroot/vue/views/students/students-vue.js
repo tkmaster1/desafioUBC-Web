@@ -9,17 +9,11 @@ const studentsApp = createApp({
 
             // -- Fim Listagem --
 
-            //// -- Inicio Filtros --
-            //filtroTitleMenu: '',
-            //filtroControllerMenu: '',
-            //textoBotaoStatus: "Status",
-            //statusSelecionado: 0,
-            //statusFilter: undefined,
+            // -- Inicio Filtros --
+            filterName: '',
+            filtroNameClicado: false,
 
-            //filtroTitleMenuClicado: false,
-            //filtroControllerMenuClicado: false,
-
-            //// -- Fim Filtros --
+            // -- Fim Filtros --
 
             // -- Inicio Edição --
             editStudents: {
@@ -33,10 +27,19 @@ const studentsApp = createApp({
                 dateBirth: ""
             },
 
+            toastSucessoMensagem: '',
+            toastMensagemErro: '',
+
             isInvalidEditar: false,
             messageErrorValidationEditStudents: [],
 
             // -- Fim Edição --
+
+            // -- Inicio Excluir --
+
+            deleteStudents: {},
+
+            // -- Fim Excluir --
 
             // -- Inicio Paginação  --
 
@@ -74,45 +77,25 @@ const studentsApp = createApp({
 
         //#region Filtros e Listagem - Index e Detalhe
 
-        //async selecionarStatus(statusSelecionado) {
-        //    if (statusSelecionado == "1")
-        //        this.textoBotaoStatus = "Ativo"
-        //    else if (statusSelecionado == "2")
-        //        this.textoBotaoStatus = "Inativo"
+        async filterNameClick(filtroClicado) {
+            if (filtroClicado == 1)
+                this.filtroNameClicado = true
 
-        //    this.statusSelecionado = statusSelecionado
-        //    this.listAllMenus(null)
-        //},
+            this.listAllStudents(null)
+        },
 
-        //async filterTitleOrControllerMenu(filtroClicado) {
-        //    if (filtroClicado == 1)
-        //        this.filtroTitleMenuClicado = true
-        //    else if (filtroClicado == 2)
-        //        this.filtroControllerMenuClicado = true
+        async clearFilterName() {
+            this.filterName = ''
 
-        //    this.listAllMenus(null)
-        //},
-
-        //async clearFilterMenu() {
-        //    this.textoBotaoStatus = "Status"
-
-        //    this.filtroTitleMenu = ''
-        //    this.filtroControllerMenu = ''
-        //    this.filtroTitleMenuClicado = false
-        //    this.filtroControllerMenuClicado = false
-
-        //    this.statusSelecionado = 0
-        //    this.statusFilter = undefined
-
-        //    this.listAllMenus()
-        //},
+            this.listAllStudents(null)
+        },
 
         async listAllStudents(paginaAtual) {
             this.isLoading = true;
 
             let studentsFilterMapper = new Object({
                 code: 0,
-                name: '', //this.filtroTitleMenuClicado == true ? this.filtroTitleMenu : '',
+                name: this.filtroNameClicado == true ? this.filterName : '',
                 currentPage: paginaAtual == null ? 1 : paginaAtual,
                 pageSize: 5,
                 orderBy: "firstName",
@@ -137,7 +120,9 @@ const studentsApp = createApp({
 
                 console.log(error);
 
-                $('#toastErro').toast("show")
+                this.toastMensagemErro = "Erro ao tentar listar os Estudante."
+
+                $('#toastAlteracaoErro').toast("show")
             }
         },
 
@@ -146,89 +131,121 @@ const studentsApp = createApp({
             return moment(date).format('DD/MM/YYYY');
         },
 
+        formatarData() {
+            this.editStudents.dateBirth = moment(this.editStudents.dateBirth).format('DD/MM/YYYY')
+        },
+
         // #endregion
 
         //#region Métodos de Edição
 
         async displayModalChangeStudents(code) {
-            const response = await fetchData.fetchGetJson("/Students/GetByCode/" + `${code}`)
+            try {
+                const response = await fetchData.fetchGetJson(
+                    "/Students/GetByCode/" + `${code}`)
 
-            this.editStudents = response
+                this.editStudents = response
 
-            this.formatarData()
+                this.formatarData()
 
-            this.isInvalidEditar = false
+                this.isInvalidEditar = false
+            }
+            catch (error) {
+                console.log(error)
+
+                this.toastMensagemErro = "Ocorreu um erro ao tentar exibir a tela de alterar estudante."
+
+                $("#toastAlteracaoErro").toast("show")
+            }
         },
 
-        //mapperObjectChangeMenuSystem() {
-        //    var objEditMenuSystem = new Object({
-        //        code: this.editionMenuSystem.code,
-        //        title: this.editionMenuSystem.title,
-        //        controller: this.editionMenuSystem.controller,
-        //        action: this.editionMenuSystem.action,
-        //        icon: this.editionMenuSystem.icon,
-        //        Status: this.editionMenuSystem.status,
-        //    })
+        mapperObjectChangeStudents() {
+            let campoDataNascimento = this.$refs.dataNascimentoEditStudentsRef.value
+            let d1 = moment(campoDataNascimento, 'DD/MM/YYYY', true).format()
 
-        //    // console.log(objEditMenuSystem)
-        //    return objEditMenuSystem
-        //},
+            var objEditStudents = new Object({
+                code: this.editStudents.code,
+                name: this.editStudents.name,
+                age: this.editStudents.age != '' ? this.editStudents.age : 0,
+                series: this.editStudents.series != '' ? this.editStudents.series : 0,
+                averageGrade: this.editStudents.averageGrade != '' ? this.editStudents.averageGrade : 0,
+                address: this.editStudents.address,
+                fatherName: this.editStudents.fatherName,
+                motherName: this.editStudents.motherName,
+                dateBirth: d1 != 'Invalid date' ? d1 : "",
+            })
 
-        //async saveChangeMenuSistema() {
-        //    this.isLoading = true
-        //    const menuSystemMapper = this.mapperObjectChangeMenuSystem()
-        //    // console.log(menuSistemaMapper)
+            return objEditStudents
+        },
 
-        //    try {
-        //        const response = await fetchData.fetchPostJsonValidation("/MenuSystem/ChangeMenuSystem", menuSystemMapper)
+        async saveChangeStudents() {
+            this.isLoading = true
 
-        //        if (!response.success) {
-        //            this.isLoading = false
+            const studentsMapper = this.mapperObjectChangeStudents()
+            //  console.log(studentsMapper)
 
-        //            if (response.mensagem != undefined) {
-        //                this.isInvalidEditar = true;
+            try {
+                const response = await fetchData.fetchPostJsonValidation("/Students/SaveChangeStudents", studentsMapper)
 
-        //                if (this.editionMenuSystem.title == "" || this.editionMenuSystem.title == undefined || this.editionMenuSystem.title == null) {
-        //                    this.messageErrorValidationMenuSystemEdit['title'] = 'O campo Título é obrigatório!'
-        //                }
+                if (!response.success) {
+                    this.isLoading = false
 
-        //                if (this.editionMenuSystem.controller == "" || this.editionMenuSystem.controller == undefined || this.editionMenuSystem.controller == null) {
-        //                    this.messageErrorValidationMenuSystemEdit['controller'] = 'O campo Controller é obrigatório!'
-        //                }
+                    if (response.mensagem != undefined) {
+                        this.isInvalidEditar = true;
 
-        //                if (this.editionMenuSystem.action == "" || this.editionMenuSystem.action == undefined || this.editionMenuSystem.action == null) {
-        //                    this.messageErrorValidationMenuSystemEdit['action'] = 'O campo Action é obrigatório!'
-        //                }
-        //            }
-        //        } else {
-        //            this.isLoading = false
-        //            console.log('Enviado com sucesso!')
+                        if (this.editStudents.name == "" || this.editStudents.name == undefined || this.editStudents.name == null) {
+                            this.messageErrorValidationEditStudents['name'] = 'O campo Nome é obrigatório!'
+                        }
 
-        //            Swal.fire(
-        //                'Enviado com sucesso!',
-        //                'Menu de Sistema alterado com sucesso.',
-        //                'success'
-        //            ).then((result) => {
-        //                this.fecharModal('Alterar')
+                        if (this.editStudents.age == "" || this.editStudents.age == undefined || this.editStudents.age == null) {
+                            this.messageErrorValidationEditStudents['age'] = 'O campo Idade é obrigatório!'
+                        }
 
-        //                this.listAllMenus(1)
+                        if (this.$refs.dataNascimentoEditStudentsRef.value == "" || this.$refs.dataNascimentoEditStudentsRef.value == undefined) {
+                            this.messageErrorValidationEditStudents['dateBirth'] = 'O campo Data de Nascimento é obrigatório!'
+                        }
 
-        //                this.clearFieldsChangeMenuSystem()
-        //            })
-        //        }
-        //    }
-        //    catch (error) {
-        //        this.isLoading = false
+                        if (this.editStudents.StatusMessage != "" && this.editStudents.StatusMessage != undefined) {
+                            this.toastMensagemErro = response.mensagem
 
-        //        this.fecharModal('Alterar')
+                            $("#toastAlteracaoErro").toast("show")
 
-        //        $("#toastErro").toast("show")
+                            this.clearFieldsChangeStudents()
 
-        //        this.clearFieldsChangeMenuSystem()
-        //    }
-        //},
+                            this.isLoading = false
+                        }
+                    }
+                } else {
+                    this.isLoading = false
+                    //  console.log('Enviado com sucesso!')
 
-        clearFieldsEditStudents() {
+                    Swal.fire(
+                        'Enviado com sucesso!',
+                        'Estudante alterado com sucesso.',
+                        'success'
+                    ).then((result) => {
+                        this.fecharModal('Alterar')
+
+                        this.listAllStudents(1)
+
+                        this.clearFieldsChangeStudents()
+                    })
+                }
+            }
+            catch (error) {
+                this.isLoading = false
+
+                this.fecharModal('Alterar')
+
+                this.toastMensagemErro = "Erro ao tentar editar o Estudante."
+
+                $("#toastAlteracaoErro").toast("show")
+
+                this.clearFieldsChangeStudents()
+            }
+        },
+
+        clearFieldsChangeStudents() {
             this.editStudents = {
                 name: "",
                 age: 0,
@@ -246,82 +263,80 @@ const studentsApp = createApp({
 
         // #endregion
 
-        //// #region Métodos de Exclusão
+        // #region Métodos de Exclusão
 
-        //async displayModalDeleteMenuSystem(code) {
+        async displayModalDeleteStudents(code) {
 
-        //    try {
-        //        const response = await fetchData.fetchGetJson(
-        //            "/MenuSystem/GetByCode/" + `${code}`)
+            try {
+                const response = await fetchData.fetchGetJson(
+                    "/Students/GetByCode/" + `${code}`)
 
-        //        this.editionMenuSystem = response
-        //    }
-        //    catch (error) {
-        //        console.log(error)
+                this.deleteStudents = response
+            }
+            catch (error) {
+                console.log(error)
 
-        //        this.toastMensagemErro = "Ocorreu um erro ao tentar exibir a tela de excluir menu de sistema."
+                this.toastMensagemErro = "Ocorreu um erro ao tentar exibir a tela de excluir estudante."
 
-        //        $("#toastErro").toast("show")
-        //    }
-        //},
-
-        //async saveRemoveMenuSystem(code) {
-        //    this.isLoading = true
-
-        //    try {
-        //        const response = await fetchData.fetchGetJson("/MenuSystem/SaveRemoveMenuSystem/" + `${code}`)
-
-        //        if (!response.success) {
-        //            this.isLoading = false
-
-        //            this.fecharModal("Excluir")
-
-        //            $("#toastErro").toast("show")
-
-        //        } else {
-        //            this.isLoading = false
-
-        //            console.log('Enviado com sucesso!')
-
-        //            Swal.fire(
-        //                'Enviado com sucesso!',
-        //                'Menu de Sistema excluído com sucesso.',
-        //                'success'
-        //            ).then((result) => {
-        //                this.fecharModal("Excluir")
-
-        //                this.listAllMenus(1)
-
-        //                this.clearFieldsChangeMenuSystem()
-        //            })
-        //        }
-        //    }
-        //    catch (error) {
-        //        this.isLoading = false
-
-        //        console.log(error)
-
-        //        this.toastMensagemErro = "Ocorreu um erro ao tentar excluir o menu de sistema."
-
-        //        this.fecharModal("Excluir")
-
-        //        $("#toastErro").toast("show")
-        //    }
-        //},
-
-        //// #endregion
-
-        ////#region Métodos de SubMenuSistema
-
-        //async displayListSubMenuSystem(codMenu, titulo) {
-        //    window.location.href = '/SubMenuSystem/Index?codMenu=' + codMenu + '&titulo=' + titulo
-        //},
-
-        //// #endregion Fim SubMenuSistema
-
-        formatarData() {
-            this.editStudents.dateBirth = moment(this.editStudents.dateBirth).format('DD/MM/YYYY')
+                $("#toastAlteracaoErro").toast("show")
+            }
         },
+
+        async saveRemoveStudents(code) {
+            //   this.isLoading = true
+
+            try {
+                const response = await fetchData.fetchGetJson("/Students/SaveRemoveStudents/" + `${code}`)
+
+                if (!response.success) {
+                    this.isLoading = false
+
+                    this.fecharModal("Excluir")
+
+                    this.toastMensagemErro = "Ocorreu um erro ao tentar excluir o estudante."
+
+                    $("#toastAlteracaoErro").toast("show")
+
+                    this.clearFieldsRemoveStudents()
+
+                } else {
+                    this.isLoading = false
+
+                    // console.log('Enviado com sucesso!')
+
+                    Swal.fire(
+                        'Enviado com sucesso!',
+                        'Estudante excluído com sucesso.',
+                        'success'
+                    ).then((result) => {
+                        this.fecharModal("Excluir")
+
+                        this.listAllStudents(1)
+
+                        this.clearFieldsRemoveStudents()
+                    })
+                }
+            }
+            catch (error) {
+                this.isLoading = false
+
+                console.log(error)
+
+                this.toastMensagemErro = "Ocorreu um erro ao tentar excluir o estudante."
+
+                this.fecharModal("Excluir")
+
+                $("#toastAlteracaoErro").toast("show")
+
+                this.clearFieldsRemoveStudents()
+            }
+        },
+
+        clearFieldsRemoveStudents() {
+            this.deleteStudents = {}
+        },
+
+        // #endregion
 
         fecharModal(operacao) {
             if (operacao == 'Alterar') {
@@ -329,9 +344,9 @@ const studentsApp = createApp({
                 $(".modal-backdrop").remove();
                 $("#modalUpdateStudents").hide();
             } else {
-                $("#modalDeleteMenuSystem").removeClass("show");
+                $("#modalDeleteStudents").removeClass("show");
                 $(".modal-backdrop").remove();
-                $("#modalDeleteMenuSystem").hide();
+                $("#modalDeleteStudents").hide();
             }
         },
     }
@@ -339,4 +354,5 @@ const studentsApp = createApp({
     .use(VueLoading.LoadingPlugin)
     .component('loading', VueLoading.Component)
     .component('msgsucessoerro', msgToastComponent)
+    .directive("maska", Maska.vMaska)
     .mount('#dvStudents')

@@ -54,6 +54,16 @@ namespace DesafioUBC.Web.Vue.UI.Controllers
             return Ok(retorno);
         }
 
+        [HttpGet("{code}")]
+        public async Task<IActionResult> GetByCode(int code)
+        {
+            var response = await _unitOfWork.StudentsApp.GetByCode(code);
+
+            var retorno = _mapper.Map<StudentsViewModel>(response?.Data ?? new StudentsDTO());
+
+            return Ok(retorno);
+        }
+
         [HttpPost]
         public async Task<IActionResult> SaveNewStudents([FromBody] StudentsViewModel studentsViewModel)
         {
@@ -73,7 +83,7 @@ namespace DesafioUBC.Web.Vue.UI.Controllers
                 studentsViewModel.StatusMessage += "* " + retorno.Value + "<br/>";
 
                 Success = false;
-                Mensagem = PersonalizedMessages.MSG_FALHA.ToFormat("Incluir", "o Menu de Sistema");
+                Mensagem = PersonalizedMessages.MSG_FALHA.ToFormat("Incluir", "o Estudante");
             }
             else
             {
@@ -84,14 +94,56 @@ namespace DesafioUBC.Web.Vue.UI.Controllers
             return Json(new { success = Success, mensagem = Mensagem });
         }
 
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode(int code)
+        [HttpPost]
+        public async Task<IActionResult> SaveChangeStudents([FromBody] StudentsViewModel studentsViewModel)
         {
-            var response = await _unitOfWork.StudentsApp.GetByCode(code);
+            bool Success;
+            string Mensagem;
 
-            var retorno = _mapper.Map<StudentsViewModel>(response?.Data ?? new StudentsDTO());
+            if (!ModelState.IsValid) return Json(new { success = false, mensagem = ModelState });
 
-            return Ok(retorno);
+            var studentsDomain = _mapper.Map<StudentsRequestDTO>(studentsViewModel);
+
+            var response = await _unitOfWork.StudentsApp.UpdateStudents(studentsDomain);
+
+            if (!response.Success)
+            {
+                var retorno = JsonConvert.DeserializeObject<Erros>(response.Errors.ToString());
+
+                studentsViewModel.StatusMessage += "* " + retorno.Value + "<br/>";
+
+                Success = false;
+                Mensagem = PersonalizedMessages.MSG_FALHA.ToFormat("alterar", "o Estudante");
+            }
+            else
+            {
+                Success = true;
+                Mensagem = PersonalizedMessages.MSG_SUCESSO.ToFormat("realizada", "Alteração");
+            }
+
+            return Json(new { success = Success, mensagem = Mensagem });
+        }
+
+        [HttpGet("{code}")]
+        public async Task<IActionResult> SaveRemoveStudents(int code)
+        {
+            string Mensagem;
+            bool Success;
+
+            var response = await _unitOfWork.StudentsApp.RemoveStudents(code);
+
+            if (!response.Success)
+            {
+                Success = false;
+                Mensagem = PersonalizedMessages.MSG_FALHA.ToFormat("excluir", "o Estudante");
+            }
+            else
+            {
+                Success = true;
+                Mensagem = PersonalizedMessages.MSG_SUCESSO.ToFormat("realizada", "Exclusão");
+            }
+
+            return Json(new { success = Success, mensagem = Mensagem });
         }
 
         #endregion

@@ -39,8 +39,6 @@
             let campoDataNascimento = this.$refs.dataNascimentoStudentsRef.value
             let d1 = moment(campoDataNascimento, 'DD/MM/YYYY', true).format()
 
-            console.log('series: ' + this.newStudents.series)
-
             var objNewStudents = new Object({
                 name: this.newStudents.name,
                 age: this.newStudents.age != '' ? this.newStudents.age : 0,
@@ -52,14 +50,13 @@
                 dateBirth: d1 != 'Invalid date' ? d1 : "",
             })
 
-            // console.log(objNewMenuSystem)
             return objNewStudents
         },
 
         async saveNewStudents() {
-            //  this.isLoading = true
+            //
             const newStudentsMapper = this.mapperObjectCreateStudents()
-            console.log(newStudentsMapper)
+            //   console.log(newStudentsMapper)
 
             try {
                 const response = await fetchData.fetchPostJsonValidation("/Students/SaveNewStudents", newStudentsMapper)
@@ -85,9 +82,6 @@
                         }
 
                         if (this.newStudents.StatusMessage != "" && this.newStudents.StatusMessage != undefined) {
-                            //debugger
-                            //console.log(response.mensagem)
-
                             this.toastMensagemErro = response.mensagem
 
                             $("#toastErroCadastrar").toast("show")
@@ -98,11 +92,10 @@
                         }
                     }
                 } else {
-                    //debugger;
 
                     this.isLoading = false
 
-                    console.log('Enviado com sucesso!')
+                    //   console.log('Enviado com sucesso!')
 
                     Swal.fire(
                         'Enviado com sucesso!',
@@ -123,7 +116,7 @@
 
                 this.fecharModal()
 
-                this.toastMensagemErro = "Erro ao tentar cadastrar o Menu de Sistema."
+                this.toastMensagemErro = "Erro ao tentar cadastrar o Estudante."
 
                 $("#toastErroCadastrar").toast("show")
 

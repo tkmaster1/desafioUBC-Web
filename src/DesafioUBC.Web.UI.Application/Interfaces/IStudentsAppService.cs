@@ -9,10 +9,10 @@ namespace DesafioUBC.Web.UI.Application.Interfaces
 
         Task<ResponseAPIData<StudentsDTO>> GetByCode(int code);
 
-        Task<ResponseAPIData<object>> CreateStudents(StudentsRequestDTO menuSystemReq);
+        Task<ResponseAPIData<object>> CreateStudents(StudentsRequestDTO studentsRequestDTO);
 
-        //Task<ResponseAPIData<object>> UpdateMenuSystem(MenuSystemRequestDTO menuSystemReq);
+        Task<ResponseAPIData<object>> UpdateStudents(StudentsRequestDTO studentsRequestDTO);
 
-        //Task<ResponseAPIData<object>> RemoveMenuSystem(int code);
+        Task<ResponseAPIData<object>> RemoveStudents(int code);
     }
 }

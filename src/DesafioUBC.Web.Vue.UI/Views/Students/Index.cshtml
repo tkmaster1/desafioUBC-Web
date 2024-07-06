@@ -25,18 +25,13 @@
         <div class="card" id="dvStudents" v-cloak>
 
             <partial name="_UpdateStudents" />
-@*             <partial name="_DeleteMenuSystem" />
- *@
+            <partial name="_DeleteStudents" />
+
             <div class="card card-default">
                 <div class="card-header alert-dark">
                     <h3 class="card-title">
                         <i class="fas fa-filter"></i>&nbsp;Filtros
                     </h3>
-                    @* <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                    </button>
-                    </div> *@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -44,16 +39,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Título do menu">
-                                    <button class="btn btn-default">
+                                    <input type="text" class="form-control" placeholder="nome do estudante" v-model="filterName">
+                                    <button class="btn btn-default" v-on:click.prevent="filterNameClick(1)">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <button class="btn btn-secondary"
-                                            type="button">
+                                    <button class="btn btn-secondary" v-on:click="clearFilterName" type="button">
                                         <span class="d-none d-md-inline">Limpar Filtros</span><span class="d-inline d-md-none"><i class="fa fa-check"></i></span>
                                     </button>
                                 </div>
@@ -150,12 +144,12 @@
                                 </a>
                                 <a href="#modalDeleteStudents" data-bs-toggle="modal"
                                    class=" w-66px me-1 pt-1" v-on:click="displayModalDeleteStudents(st.code, st.name)">
-                                    <i class="fas fa-trash fa-fw me-1 " style="color:red" title="Remover Menu"></i>
+                                    <i class="fas fa-trash fa-fw me-1 " style="color:red" title="Remover Estudante"></i>
                                 </a>
                             </td>
                         </tr>
                         <tr v-else>
-                            <td class="text-center" colspan="8">Nenhum registro encontrado</td>
+                            <td class="text-center" colspan="12">Nenhum registro encontrado</td>
                         </tr>
                     </tbody>
                 </table>
