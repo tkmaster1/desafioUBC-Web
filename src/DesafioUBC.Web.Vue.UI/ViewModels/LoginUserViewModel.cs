@@ -15,10 +15,6 @@ namespace DesafioUBC.Web.Vue.UI.ViewModels
         [Display(Name = "Senha")]
         public string Password { get; set; }
 
-        ////RememberMe
-        //[Display(Name = "Lembrar de mim?")]
-        //public bool RememberMe { get; set; }
-
         [NotMapped]
         public string ReturnUrl { get; set; }
     }

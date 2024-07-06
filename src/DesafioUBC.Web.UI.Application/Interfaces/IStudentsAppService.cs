@@ -1,10 +1,11 @@
-﻿using DesafioUBC.Web.UI.Application.Responses;
+﻿using DesafioUBC.Web.UI.Application.DTOs.Students;
+using DesafioUBC.Web.UI.Application.Responses;
 
 namespace DesafioUBC.Web.UI.Application.Interfaces
 {
     public interface IStudentsAppService : IDisposable
     {
-      //  Task<ResponseAPIDataListPaginations<StudentsDTO>> ListMenusByFilters(StudentsFilterDTO req);
+        Task<ResponseAPIDataListPaginations<StudentsDTO>> ListByFilters(StudentsFilterDTO req);
 
         //Task<ResponseAPIData<MenuSystemDTO>> GetByCode(int code);
 
