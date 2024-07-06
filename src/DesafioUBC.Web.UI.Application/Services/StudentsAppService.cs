@@ -32,6 +32,20 @@ namespace DesafioUBC.Web.UI.Application.Services
             return await _baseService.Post(url, req).ToResponseListPaginations<StudentsDTO>();
         }
 
+        public async Task<ResponseAPIData<StudentsDTO>> GetByCode(int code)
+        {
+            string url = $"{_baseService.UrlBase}/Students/getByCode/{code.ToString()}";
+
+            return await _baseService.Get(url).ToResponse<StudentsDTO>();
+        }
+
+        public async Task<ResponseAPIData<object>> CreateStudents(StudentsRequestDTO studentsRequest)
+        {
+            string url = $"{_baseService.UrlBase}/Students/include/";
+
+            return await _baseService.Post(url, studentsRequest).ToResponse<object>();
+        }
+
         public void Dispose() => GC.SuppressFinalize(this);
 
         #endregion

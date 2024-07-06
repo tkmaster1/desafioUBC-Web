@@ -7,13 +7,9 @@ namespace DesafioUBC.Web.UI.Application.Interfaces
     {
         Task<ResponseAPIDataListPaginations<StudentsDTO>> ListByFilters(StudentsFilterDTO req);
 
-        //Task<ResponseAPIData<MenuSystemDTO>> GetByCode(int code);
+        Task<ResponseAPIData<StudentsDTO>> GetByCode(int code);
 
-        //Task<ResponseAPIDataList<MenuSystemResultDTO>> GetMenuListAndSubMenu();
-
-        //Task<ResponseAPIDataList<MenuSystemResultDTO>> GetMenuListAndSubMenuByUser(string codeUser);
-
-        //Task<ResponseAPIData<object>> CreateMenuSystem(MenuSystemRequestDTO menuSystemReq);
+        Task<ResponseAPIData<object>> CreateStudents(StudentsRequestDTO menuSystemReq);
 
         //Task<ResponseAPIData<object>> UpdateMenuSystem(MenuSystemRequestDTO menuSystemReq);
 

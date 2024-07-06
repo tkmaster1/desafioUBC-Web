@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DesafioUBC.Web.Vue.UI.ViewModels
 {
@@ -45,5 +46,8 @@ namespace DesafioUBC.Web.Vue.UI.ViewModels
         /// </summary>
         [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
         public DateTime DateBirth { get; set; }
+
+        [NotMapped]
+        public string StatusMessage { get; set; }
     }
 }

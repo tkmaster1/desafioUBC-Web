@@ -8,16 +8,49 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-8 mb-3">
                             <label class="form-label">Nome <span class="text-danger">*</span></label>
                             <div class="row row-space-10">
-                                <div class="col-12" :class="classesErrorsValidation">
+                                <div class="col-12" v-bind:class="classesErrorsValidation">
                                     <div class="input-group ">
                                         <input type="text" class="form-control" placeholder="Nome" v-model="newStudents.name" minLength="2" maxlength="256" required />
                                         <div class="invalid-feedback">
                                             {{messageErrorValidationStudents.name}}
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Idade <span class="text-danger">*</span></label>
+                            <div class="row row-space-10">
+                                <div class="col-12" v-bind:class="classesErrorsValidation">
+                                    <div class="input-group input-daterange " id="dataInclusaoNoticiaDiv">
+                                        <input type="number" class="form-control" placeholder="Idade" min="1" v-model="newStudents.age" required />
+                                        <div class="invalid-feedback">
+                                            {{messageErrorValidationStudents.age}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Série</label>
+                            <div class="row row-space-10">
+                                <div class="col-12" :class="classesErrorsValidation">
+                                    <input type="number" class="form-control " placeholder="Série" v-model="newStudents.series" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nota média</label>
+                            <div class="row row-space-10">
+                                <div class="col-12" :class="classesErrorsValidation">
+                                    <input type="number" class="form-control " placeholder="nota média" step="0.01" v-model="newStudents.averageGrade" />
                                 </div>
                             </div>
                         </div>
@@ -29,7 +62,7 @@
                             <div class="row row-space-10">
                                 <div class="col-12" :class="classesErrorsValidation">
                                     <div class="input-group ">
-                                        <input type="text" class="form-control" placeholder="Endereço" v-model="newStudents.Address" maxlength="1000" />
+                                        <input type="text" class="form-control" placeholder="Endereço" v-model="newStudents.address" maxlength="1000" />
                                     </div>
                                 </div>
                             </div>
@@ -40,11 +73,10 @@
                             <div class="row row-space-10">
                                 <div class="col-12" :class="classesErrorsValidation">
                                     <div class="input-group input-daterange " id="dataNascimentoStudentsDiv">
-                                        @* <input type="text" class="form-control data" name="start" placeholder="Data de nascimento"
-                                        id="dataNascimentoStudentsRef" ref="dataNascimentoStudentsRef"
-                                        v-on:keyup="mascararData" v-maska data-maska="##/##/####" minLength="10"
-                                        maxlength="10" required /> *@
-                                        <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                        <input type="text" class="form-control data" name="start" placeholder="Data de nascimento"
+                                               id="dataNascimentoStudentsRef" ref="dataNascimentoStudentsRef"
+                                               v-maska data-maska="##/##/####" minLength="10"
+                                               maxlength="10" required />
                                         <label class="input-group-text" for="datepicker-component"><i class="fa fa-calendar"></i></label>
                                         <div class="invalid-feedback">
                                             {{messageErrorValidationStudents.dateBirth}}
@@ -56,40 +88,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Idade <span class="text-danger">*</span></label>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nome do pai</label>
                             <div class="row row-space-10">
                                 <div class="col-12" :class="classesErrorsValidation">
-                                    <div class="input-group input-daterange " id="dataInclusaoNoticiaDiv">
-                                        <input type="number" class="form-control" placeholder="Idade" v-model="newStudents.age" required />
-                                        <div class="invalid-feedback">
-                                            {{messageErrorValidationStudents.age}}
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control" placeholder="Nome do pai" v-model="newStudents.fatherName" minLength="2" maxlength="256" />
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Série</label>
-                            <div class="row row-space-10">
-                                <div class="col-12" :class="classesErrorsValidation">
-                                    <input type="number" class="form-control " placeholder="Série" v-model="newStudents.series" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Nota média</label>
-                            <div class="row row-space-10">
-                                <div class="col-12" :class="classesErrorsValidation">
-                                    <input type="text" class="form-control " placeholder="nota média" v-model="newStudents.averageGrade" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Nome da mãe</label>
@@ -102,16 +108,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Nome do pai</label>
-                            <div class="row row-space-10">
-                                <div class="col-12" :class="classesErrorsValidation">
-                                    <input type="text" class="form-control" placeholder="Nome do pai" v-model="newStudents.fatherName" minLength="2" maxlength="256" />
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>
@@ -122,6 +118,5 @@
             </div>
         </div>
     </div>
-
-    <loading v-model:active="isLoading" :is-full-page="fullPage" color="#530daf" />
+    <partial name="_MessagesCreateStudents" />
 </div>

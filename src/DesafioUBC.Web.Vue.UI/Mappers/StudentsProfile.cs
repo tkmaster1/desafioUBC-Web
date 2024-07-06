@@ -16,6 +16,8 @@ namespace DesafioUBC.Web.UI.Application.Mappers
         {
             CreateMap<StudentsDTO, StudentsViewModel>().ReverseMap();
 
+            CreateMap<StudentsViewModel, StudentsRequestDTO>().ReverseMap();
+
             CreateMap<DataListPagination<StudentsDTO>, PaginationViewModel<StudentsViewModel>>()
                 .AfterMap((source, converted, context) =>
                 {

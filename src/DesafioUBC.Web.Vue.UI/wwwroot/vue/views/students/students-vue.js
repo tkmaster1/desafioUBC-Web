@@ -1,6 +1,6 @@
 ﻿const { createApp, ref } = Vue
 
-const menuSystemApp = createApp({
+const studentsApp = createApp({
     data() {
         return {
 
@@ -21,19 +21,22 @@ const menuSystemApp = createApp({
 
             //// -- Fim Filtros --
 
-            //// -- Inicio Edição --
-            //editionMenuSystem: {
-            //    title: '',
-            //    controller: '',
-            //    action: '',
-            //    icon: '',
-            //    status: true
-            //},
-            //isInvalidEditar: false,
-            //statusChecked: false,
-            //messageErrorValidationMenuSystemEdit: [],
+            // -- Inicio Edição --
+            editStudents: {
+                name: "",
+                age: 0,
+                series: 0,
+                averageGrade: 0,
+                Address: "",
+                fatherName: "",
+                motherName: "",
+                dateBirth: ""
+            },
 
-            //// -- Fim Edição --
+            isInvalidEditar: false,
+            messageErrorValidationEditStudents: [],
+
+            // -- Fim Edição --
 
             // -- Inicio Paginação  --
 
@@ -47,7 +50,7 @@ const menuSystemApp = createApp({
         }
     },
     computed: {
-        classesErrorsValidationMenuEdit() {
+        classesErrorsValidationEditStudents() {
             return {
                 "was-validated": this.isInvalidEditar
             }
@@ -138,19 +141,24 @@ const menuSystemApp = createApp({
             }
         },
 
+        moment: function (date) {
+            moment.locale('pt-br')
+            return moment(date).format('DD/MM/YYYY');
+        },
+
         // #endregion
 
-        ////#region Métodos de Edição
+        //#region Métodos de Edição
 
-        //async displayModalChangeMenuSystem(code) {
-        //    const response = await fetchData.fetchGetJson("/MenuSystem/GetByCode/" + `${code}`)
+        async displayModalChangeStudents(code) {
+            const response = await fetchData.fetchGetJson("/Students/GetByCode/" + `${code}`)
 
-        //    this.editionMenuSystem = response
+            this.editStudents = response
 
-        //    this.editionMenuSystem.status == true ? this.statusChecked = true : this.statusChecked = false
+            this.formatarData()
 
-        //    this.isInvalidEditar = false
-        //},
+            this.isInvalidEditar = false
+        },
 
         //mapperObjectChangeMenuSystem() {
         //    var objEditMenuSystem = new Object({
@@ -220,20 +228,23 @@ const menuSystemApp = createApp({
         //    }
         //},
 
-        //clearFieldsChangeMenuSystem() {
-        //    this.editionMenuSystem = {
-        //        title: "",
-        //        controller: "",
-        //        action: "",
-        //        icon: "",
-        //        status: true
-        //    }
+        clearFieldsEditStudents() {
+            this.editStudents = {
+                name: "",
+                age: 0,
+                series: 0,
+                averageGrade: 0,
+                Address: "",
+                fatherName: "",
+                motherName: "",
+                dateBirth: ""
+            }
 
-        //    this.messageErrorValidationMenuSystemEdit = []
-        //    this.isInvalidEditar = false
-        //},
+            this.messageErrorValidationEditStudents = []
+            this.isInvalidEditar = false
+        },
 
-        //// #endregion
+        // #endregion
 
         //// #region Métodos de Exclusão
 
@@ -308,33 +319,24 @@ const menuSystemApp = createApp({
 
         //// #endregion Fim SubMenuSistema
 
+        formatarData() {
+            this.editStudents.dateBirth = moment(this.editStudents.dateBirth).format('DD/MM/YYYY')
+        },
+
         fecharModal(operacao) {
             if (operacao == 'Alterar') {
-                $("#modalUpdateMenuSystem").removeClass("show");
+                $("#modalUpdateStudents").removeClass("show");
                 $(".modal-backdrop").remove();
-                $("#modalUpdateMenuSystem").hide();
+                $("#modalUpdateStudents").hide();
             } else {
                 $("#modalDeleteMenuSystem").removeClass("show");
                 $(".modal-backdrop").remove();
                 $("#modalDeleteMenuSystem").hide();
             }
         },
-
-        //abrirModal(idModal) {
-        //    let modalElement = document.querySelector(idModal);
-        //    let modal = bootstrap.Modal.getOrCreateInstance(modalElement)
-        //    modal.show()
-        //},
-
-        //fecharModal(idModal) {
-        //    let modalElement = document.querySelector(idModal);
-
-        //    let modal = bootstrap.Modal.getOrCreateInstance(modalElement)
-
-        //    modal.hide()
-        //},
     }
 })
     .use(VueLoading.LoadingPlugin)
     .component('loading', VueLoading.Component)
+    .component('msgsucessoerro', msgToastComponent)
     .mount('#dvStudents')
