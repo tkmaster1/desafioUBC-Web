@@ -85,9 +85,8 @@ createApp({
         },
 
         clearFieldsLogin() {
-
             this.newLoginUser = {
-                email: "",
+                userName: "",
                 password: "",
                 returnUrl: ""
             }
